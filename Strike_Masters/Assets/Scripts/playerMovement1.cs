@@ -8,16 +8,15 @@ public class playerMovement1 : MonoBehaviour
     private float horizontal;
     private float vertical;
     public float speed;
-    public Rigidbody rb;
+    public Rigidbody rbPlayer;
     private Vector3 movement;
     public float kickForce = 10f;
     private BallHolder ballHolder;
-    public float possessionRange = 1.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rbPlayer = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,7 +27,7 @@ public class playerMovement1 : MonoBehaviour
 
         movement = (transform.forward * vertical + transform.right * horizontal).normalized;
 
-        rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
+        rbPlayer.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
@@ -40,21 +39,5 @@ public class playerMovement1 : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Ball"))
-        {
-            ballHolder = other.GetComponent<BallHolder>();
-           
-            float distanceToBall = Vector3.Distance(transform.position, ballHolder.transform.position);
-            if (distanceToBall <= possessionRange)
-            {
-                if (ballHolder != null && ballHolder.currentHolder == null)
-            {
-                ballHolder.currentHolder = transform;
-            }
-            }
-        }
-    }
 
 }

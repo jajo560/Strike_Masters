@@ -7,19 +7,29 @@ public class BallHolder : MonoBehaviour
     public Transform currentHolder;
     public float followSpeed = 10f;
     private Rigidbody rb;
+    public float possessionRange = 1.5f;
+    public playerMovement1 player;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
     }
 
     void FixedUpdate()
     {
-        if (currentHolder != null)
+        if (player != null)
         {
-            Vector3 targetPosition = currentHolder.position + currentHolder.forward * 1.5f;
-            rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime));
-            rb.velocity = Vector3.zero;
+            float distanceToBall = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToBall <= possessionRange)
+            {
+                if (currentHolder != null)
+                {
+                    Vector3 targetPosition = currentHolder.transform.position;
+                    rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime));
+                    rb.velocity = Vector3.zero;
+                }
+            }
         }
     }
 
