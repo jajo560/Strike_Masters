@@ -8,15 +8,18 @@ public class playerMovement1 : MonoBehaviour
     private float horizontal;
     private float vertical;
     public float speed;
-    public Rigidbody rbPlayer;
-    private Vector3 movement;
     public float kickForce = 10f;
-    private BallHolder ballHolder;
+    public bool isPossessed = false;
 
+    private BallHolder ballHolder;    
+    public Rigidbody rbPlayer;
+    private Quaternion lastRotation;
+    private Vector3 movement;
     // Start is called before the first frame update
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
+        lastRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -25,19 +28,49 @@ public class playerMovement1 : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        movement = (transform.forward * vertical + transform.right * horizontal).normalized;
+        movement = new Vector3(horizontal, 0, vertical);
 
-        rbPlayer.MovePosition(transform.position + movement * speed * Time.deltaTime);
+        rbPlayer.velocity += movement * speed * Time.deltaTime;
 
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        transform.rotation = Quaternion.LookRotation(movement);
 
-        if (Input.GetKeyDown(KeyCode.Space) && ballHolder != null)
+        if (movement.magnitude > 0.1f)
         {
-            Vector3 kickDirection = transform.forward;
-            ballHolder.KickTheBall(kickDirection, kickForce);
+            lastRotation = Quaternion.LookRotation(movement);
+        }
+        transform.rotation = lastRotation;
+
+        if (Input.GetKeyDown(KeyCode.Space) && isPossessed)
+        {
+            Debug.Log("FFFFF");
+            KickBall();
         }
 
     }
 
+    void KickBall()
+    {
+        if (ballHolder != null && ballHolder.currentHolder == transform)
+        {
+            Vector3 kickDirection = transform.forward;
+            ballHolder.KickTheBall(kickDirection, kickForce);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ball"))
+        {
+            isPossessed = true;            
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ball"))
+        {
+            isPossessed = false;
+        }
+    }
 
 }

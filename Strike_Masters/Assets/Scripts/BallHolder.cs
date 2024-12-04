@@ -8,28 +8,19 @@ public class BallHolder : MonoBehaviour
     public float followSpeed = 10f;
     private Rigidbody rb;
     public float possessionRange = 1.5f;
-    public playerMovement1 player;
+    public bool isPossessed = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
     }
 
     void FixedUpdate()
     {
-        if (player != null)
-        {
-            float distanceToBall = Vector3.Distance(transform.position, player.transform.position);
-            if (distanceToBall <= possessionRange)
-            {
-                if (currentHolder != null)
-                {
-                    Vector3 targetPosition = currentHolder.transform.position;
-                    rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime));
-                    rb.velocity = Vector3.zero;
-                }
-            }
+        if (isPossessed == true && currentHolder != null) { 
+
+            Vector3 targetPosition = currentHolder.transform.position;
+            rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime));
         }
     }
 
@@ -37,6 +28,24 @@ public class BallHolder : MonoBehaviour
     {
         currentHolder = null;
         rb.isKinematic = false;
+        isPossessed = false;
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.CompareTag("Player"))
+        {
+            isPossessed = true;   
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.collider.CompareTag("Player"))
+        {
+            isPossessed = false;
+        }
+    }
+
 }
