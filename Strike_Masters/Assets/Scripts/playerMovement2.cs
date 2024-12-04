@@ -8,13 +8,18 @@ public class playerMovement2 : MonoBehaviour
     private float horizontal;
     private float vertical;
     public float speed;
-    public Rigidbody rb;
-    private Vector3 movement;
+    public float kickForce = 10f;
+    public bool isPossessed = false;
 
+    private BallHolder ballHolder;
+    public Rigidbody rbPlayer;
+    private Quaternion lastRotation;
+    private Vector3 movement;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rbPlayer = GetComponent<Rigidbody>();
+        lastRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -25,10 +30,45 @@ public class playerMovement2 : MonoBehaviour
 
         movement = new Vector3(horizontal, 0, vertical);
 
-        rb.velocity += movement * speed * Time.deltaTime;
+        rbPlayer.velocity += movement * speed * Time.deltaTime;
 
-        transform.rotation = Quaternion.LookRotation(movement);
+        if (movement.magnitude > 0.1f)
+        {
+            lastRotation = Quaternion.LookRotation(movement);
+        }
+        transform.rotation = lastRotation;
 
+        if (Input.GetKeyDown(KeyCode.Space) && isPossessed)
+        {
+            Debug.Log("FFFFF");
+            KickBall();
+        }
 
     }
+
+    void KickBall()
+    {
+        if (ballHolder != null && ballHolder.currentHolder == transform)
+        {
+            Vector3 kickDirection = transform.forward;
+            ballHolder.KickTheBall(kickDirection, kickForce);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ball"))
+        {
+            isPossessed = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ball"))
+        {
+            isPossessed = false;
+        }
+    }
+
 }

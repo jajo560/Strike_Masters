@@ -7,8 +7,9 @@ public class BallHolder : MonoBehaviour
     public Transform currentHolder;
     public float followSpeed = 10f;
     private Rigidbody rb;
-    public float possessionRange = 1.5f;
+    public float possessionRange = 0.5f;
     public bool isPossessed = false;
+    public GameObject player;
 
     void Start()
     {
@@ -17,35 +18,36 @@ public class BallHolder : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isPossessed == true && currentHolder != null) { 
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-            Vector3 targetPosition = currentHolder.transform.position;
-            rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime));
+        if (distanceToPlayer <= possessionRange && currentHolder != null)
+        {
+            PossessBall();
         }
+        else if (isPossessed == false)
+        {
+            ReleaseBall();
+        }
+    }
+
+    private void PossessBall()
+    {
+        isPossessed = true;
+        transform.SetParent(currentHolder);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    private void ReleaseBall()
+    {
+        isPossessed = false;
+        transform.SetParent(null);
+        
     }
 
     public void KickTheBall(Vector3 kickDirection, float kickForce)
     {
-        currentHolder = null;
-        rb.isKinematic = false;
-        isPossessed = false;
+        ReleaseBall();
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
     }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.collider.CompareTag("Player"))
-        {
-            isPossessed = true;   
-        }
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.collider.CompareTag("Player"))
-        {
-            isPossessed = false;
-        }
-    }
-
 }

@@ -11,7 +11,7 @@ public class playerMovement1 : MonoBehaviour
     public float kickForce = 10f;
     public bool isPossessed = false;
 
-    private BallHolder ballHolder;    
+    public BallHolder ballHolder;    
     public Rigidbody rbPlayer;
     private Quaternion lastRotation;
     private Vector3 movement;
@@ -20,6 +20,7 @@ public class playerMovement1 : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody>();
         lastRotation = transform.rotation;
+
     }
 
     // Update is called once per frame
@@ -32,45 +33,31 @@ public class playerMovement1 : MonoBehaviour
 
         rbPlayer.velocity += movement * speed * Time.deltaTime;
 
-        transform.rotation = Quaternion.LookRotation(movement);
-
         if (movement.magnitude > 0.1f)
         {
             lastRotation = Quaternion.LookRotation(movement);
         }
         transform.rotation = lastRotation;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isPossessed)
+        if (ballHolder != null)
         {
-            Debug.Log("FFFFF");
-            KickBall();
+            if (ballHolder.isPossessed == true && Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("FFFFF");
+                KickBall();
+            }
         }
 
     }
 
     void KickBall()
     {
-        if (ballHolder != null && ballHolder.currentHolder == transform)
+        if (ballHolder != null)
         {
             Vector3 kickDirection = transform.forward;
             ballHolder.KickTheBall(kickDirection, kickForce);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Ball"))
-        {
-            isPossessed = true;            
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("Ball"))
-        {
-            isPossessed = false;
-        }
-    }
 
 }
