@@ -15,7 +15,7 @@ public class playerMovement1 : MonoBehaviour
     public Rigidbody rbPlayer;
     private Quaternion lastRotation;
     private Vector3 movement;
-    // Start is called before the first frame update
+
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
@@ -23,7 +23,6 @@ public class playerMovement1 : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
