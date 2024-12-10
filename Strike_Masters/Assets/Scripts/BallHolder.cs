@@ -5,17 +5,16 @@ using UnityEngine;
 public class BallHolder : MonoBehaviour
 {
     public Transform[] currentHolder;
+    public GameObject currentPlayer;
     public float followSpeed = 10f;
     private Rigidbody rb;
-    public float possessionRange;
+    public float possessionRange = 2f;
     public bool isPossessed = false;
-    public bool hasBall1 = false;
-    public bool hasBall2 = false;
-    public GameObject[] player;
-
+    public GameObject[] players;
+    public float possessionSwitchDelay = 0.5f;
+    private float lastPossessionTime = -1f;
     private bool canBePossessed = true;
-    public float possessionCooldown = 0.5f;
-
+    public float possessionCooldown = 0.1f;
 
     void Start()
     {
@@ -24,61 +23,74 @@ public class BallHolder : MonoBehaviour
 
     void FixedUpdate()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player[0].transform.position);
-        float distanceToPlayer2 = Vector3.Distance(transform.position, player[1].transform.position);
+        UpdatePossession();
 
-        if (canBePossessed && distanceToPlayer <= possessionRange && currentHolder != null)
+        if (isPossessed && currentPlayer != null)
         {
-            PossessBall();
-            hasBall1 = true;
+            Transform holderTransform = GetCurrentHolderTransform();
+            if (holderTransform != null)
+            {
+                transform.position = Vector3.Lerp(transform.position, holderTransform.position, followSpeed * Time.fixedDeltaTime);
+                transform.rotation = holderTransform.rotation;
+            }
         }
-        else if (distanceToPlayer > possessionRange && currentHolder != null)
-        {
-            hasBall1 = false;
-        }
-
-        if (canBePossessed && distanceToPlayer2 <= possessionRange && currentHolder != null)
-        {
-            PossessBall();
-            hasBall2 = true;
-        }
-        else if (distanceToPlayer2 > possessionRange && currentHolder != null)
-        {
-            hasBall2 = false;
-        }
-
-        if (isPossessed == false)
-        {
-            ReleaseBall();
-        }
-
     }
 
-    private void PossessBall()
+    private void UpdatePossession()
+    {
+        float distanceToPlayer1 = Vector3.Distance(transform.position, players[0].transform.position);
+        float distanceToPlayer2 = Vector3.Distance(transform.position, players[1].transform.position);
+
+        bool player1InRange = distanceToPlayer1 <= possessionRange;
+        bool player2InRange = distanceToPlayer2 <= possessionRange;
+
+        if (canBePossessed && Time.time >= lastPossessionTime + possessionSwitchDelay)
+        {
+            if (player1InRange && player2InRange)
+            {
+                if (distanceToPlayer1 < distanceToPlayer2)
+                {
+                    AssignPossession(players[0], currentHolder[0]);
+                }
+                else
+                {
+                    AssignPossession(players[1], currentHolder[1]);
+                }
+            }
+            else if (player1InRange)
+            {
+                AssignPossession(players[0], currentHolder[0]);
+            }
+            else if (player2InRange)
+            {
+                AssignPossession(players[1], currentHolder[1]);
+            }
+            else
+            {
+                ReleaseBall();
+            }
+        }
+    }
+
+    private void AssignPossession(GameObject player, Transform holder)
     {
         isPossessed = true;
+        currentPlayer = player;
 
-        if (hasBall1)
-        {
-            transform.SetParent(currentHolder[0]);
-        }
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
-        if (hasBall2)
-        {
-            transform.SetParent(currentHolder[1]);
-        }
+        transform.position = holder.position;
+        transform.rotation = holder.rotation;
 
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-
+        lastPossessionTime = Time.time;
     }
 
     private void ReleaseBall()
     {
-        Debug.Log("SALIO");
         isPossessed = false;
-        transform.SetParent(null);
-        
+        currentPlayer = null;
+
     }
 
     public void KickTheBall(Vector3 kickDirection, float kickForce)
@@ -88,11 +100,23 @@ public class BallHolder : MonoBehaviour
         StartCoroutine(StartPossessionCooldown());
     }
 
+    private Transform GetCurrentHolderTransform()
+    {
+        if (currentPlayer != null)
+        {
+            int index = System.Array.IndexOf(players, currentPlayer);
+            if (index >= 0 && index < currentHolder.Length)
+            {
+                return currentHolder[index];
+            }
+        }
+        return null;
+    }
+
     private IEnumerator StartPossessionCooldown()
     {
         canBePossessed = false;
         yield return new WaitForSeconds(possessionCooldown);
         canBePossessed = true;
     }
-
 }

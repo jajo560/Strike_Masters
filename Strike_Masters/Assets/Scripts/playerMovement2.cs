@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class playerMovement2 : MonoBehaviour
 {
@@ -20,11 +19,11 @@ public class playerMovement2 : MonoBehaviour
     {
         rbPlayer = GetComponent<Rigidbody>();
         lastRotation = transform.rotation;
-
     }
 
     void Update()
     {
+        // Lectura del movimiento del jugador
         horizontal = Input.GetAxisRaw("Horizontal_2");
         vertical = Input.GetAxisRaw("Vertical_2");
 
@@ -32,31 +31,30 @@ public class playerMovement2 : MonoBehaviour
 
         rbPlayer.velocity += movement * speed * Time.deltaTime;
 
+        // Actualización de la rotación
         if (movement.magnitude > 0.1f)
         {
             lastRotation = Quaternion.LookRotation(movement);
         }
         transform.rotation = lastRotation;
 
-        if (ballHolder != null)
+        // Comprobar si el jugador puede chutar
+        if (ballHolder != null && ballHolder.isPossessed && ballHolder.transform.parent == transform)
         {
-            if (ballHolder.isPossessed == true && Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("FFFFF");
                 KickBall();
             }
         }
-
     }
 
     void KickBall()
     {
         if (ballHolder != null)
         {
+            // Dirección basada en la orientación del jugador
             Vector3 kickDirection = transform.forward;
             ballHolder.KickTheBall(kickDirection, kickForce);
         }
     }
-
-
 }

@@ -1,32 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class playerMovement1 : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    private float horizontal;
-    private float vertical;
-    public float speed;
+    public string horizontalInput = "Horizontal";
+    public string verticalInput = "Vertical";
+    public KeyCode kickKey = KeyCode.Space;
+    public float speed = 5f;
     public float kickForce = 10f;
-    public bool isPossessed = false;
 
-    public BallHolder ballHolder;    
-    public Rigidbody rbPlayer;
+    private Rigidbody rbPlayer;
     private Quaternion lastRotation;
     private Vector3 movement;
+
+    public BallHolder ballHolder;
 
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
         lastRotation = transform.rotation;
-
     }
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw(horizontalInput);
+        float vertical = Input.GetAxisRaw(verticalInput);
 
         movement = new Vector3(horizontal, 0, vertical);
 
@@ -38,15 +37,15 @@ public class playerMovement1 : MonoBehaviour
         }
         transform.rotation = lastRotation;
 
-        if (ballHolder != null)
+        if (ballHolder != null && ballHolder.isPossessed && ballHolder.currentPlayer == gameObject)
         {
-            if (ballHolder.isPossessed == true && Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(kickKey))
             {
-                Debug.Log("FFFFF");
+                Debug.Log($"Player {gameObject.name} is kicking the ball!");
+
                 KickBall();
             }
         }
-
     }
 
     void KickBall()
@@ -57,6 +56,4 @@ public class playerMovement1 : MonoBehaviour
             ballHolder.KickTheBall(kickDirection, kickForce);
         }
     }
-
-
 }
