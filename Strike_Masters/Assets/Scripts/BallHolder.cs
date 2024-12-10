@@ -5,26 +5,22 @@ using UnityEngine;
 public class BallHolder : MonoBehaviour
 {
     public Transform[] currentHolder;
-    public GameObject currentPlayer;
-    public float followSpeed = 10f;
+    public GameObject currentPlayer;    
+    public GameObject[] players;    
     private Rigidbody rb;
+
+    public float followSpeed = 10f;
     public float possessionRange = 2f;
     public bool isPossessed = false;
-    public GameObject[] players;
     public float possessionSwitchDelay = 0.5f;
-    private float lastPossessionTime = -1f;
-    private bool canBePossessed = true;
-    public float possessionCooldown = 0.1f;
+    private float lastPossessionTime = -0.5f;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        UpdatePossession();
-
         if (isPossessed && currentPlayer != null)
         {
             Transform holderTransform = GetCurrentHolderTransform();
@@ -35,43 +31,24 @@ public class BallHolder : MonoBehaviour
             }
         }
     }
-
-    private void UpdatePossession()
+    private void OnCollisionEnter(Collision collision)
     {
-        float distanceToPlayer1 = Vector3.Distance(transform.position, players[0].transform.position);
-        float distanceToPlayer2 = Vector3.Distance(transform.position, players[1].transform.position);
-
-        bool player1InRange = distanceToPlayer1 <= possessionRange;
-        bool player2InRange = distanceToPlayer2 <= possessionRange;
-
-        if (canBePossessed && Time.time >= lastPossessionTime + possessionSwitchDelay)
+        for (int i = 0; i < players.Length; i++)
         {
-            if (player1InRange && player2InRange)
+            if (collision.gameObject == players[i])
             {
-                if (distanceToPlayer1 < distanceToPlayer2)
-                {
-                    AssignPossession(players[0], currentHolder[0]);
-                }
-                else
-                {
-                    AssignPossession(players[1], currentHolder[1]);
-                }
-            }
-            else if (player1InRange)
-            {
-                AssignPossession(players[0], currentHolder[0]);
-            }
-            else if (player2InRange)
-            {
-                AssignPossession(players[1], currentHolder[1]);
-            }
-            else
-            {
-                ReleaseBall();
+                TryAssignPossession(players[i], currentHolder[i]);
+                break;
             }
         }
     }
-
+    private void TryAssignPossession(GameObject player, Transform holder)
+    {
+        if (Time.time >= lastPossessionTime + possessionSwitchDelay)
+        {
+            AssignPossession(player, holder);
+        }
+    }
     private void AssignPossession(GameObject player, Transform holder)
     {
         isPossessed = true;
@@ -85,38 +62,26 @@ public class BallHolder : MonoBehaviour
 
         lastPossessionTime = Time.time;
     }
-
-    private void ReleaseBall()
+    private Transform GetCurrentHolderTransform()
     {
-        isPossessed = false;
-        currentPlayer = null;
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == currentPlayer)
+            {
+                return currentHolder[i];
+            }
+        }       
+        return null;
 
     }
-
     public void KickTheBall(Vector3 kickDirection, float kickForce)
     {
         ReleaseBall();
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
-        StartCoroutine(StartPossessionCooldown());
     }
-
-    private Transform GetCurrentHolderTransform()
+    private void ReleaseBall()
     {
-        if (currentPlayer != null)
-        {
-            int index = System.Array.IndexOf(players, currentPlayer);
-            if (index >= 0 && index < currentHolder.Length)
-            {
-                return currentHolder[index];
-            }
-        }
-        return null;
-    }
-
-    private IEnumerator StartPossessionCooldown()
-    {
-        canBePossessed = false;
-        yield return new WaitForSeconds(possessionCooldown);
-        canBePossessed = true;
+        isPossessed = false;
+        currentPlayer = null;
     }
 }

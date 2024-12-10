@@ -41,8 +41,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(kickKey))
             {
-                Debug.Log($"Player {gameObject.name} is kicking the ball!");
-
                 KickBall();
             }
         }
