@@ -4,10 +4,16 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Goal2 : MonoBehaviour
+public class Goal1 : MonoBehaviour
 {
     public TMP_Text score;
     private int currentScore = 0;
+
+    public GameObject ball;
+    public GameObject[] players;
+    public Transform[] initialPlayerPositions;
+    public Transform centerFieldPosition;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +34,7 @@ public class Goal2 : MonoBehaviour
             Debug.Log("GOOOOOLLLL");
             currentScore++;
             UpdateScoreText();
-
+            ResetBallAndPlayers();
         }
 
     }
@@ -36,6 +42,16 @@ public class Goal2 : MonoBehaviour
     private void UpdateScoreText()
     {
         score.text = currentScore.ToString();
+    }
+
+    private void ResetBallAndPlayers()
+    {
+        ball.transform.position = centerFieldPosition.position;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.position = initialPlayerPositions[i].position;
+        }
     }
 
 }
