@@ -161,9 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5385406fc532f49b0f15a1e228392b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalInput: Horizontal
+  verticalInput: Vertical
+  kickKey: 32
   speed: 40
-  rbPlayer: {fileID: 5169810427767296448}
   kickForce: 10
+  ballHolder: {fileID: 0}
 --- !u!54 &5169810427767296448
 Rigidbody:
   m_ObjectHideFlags: 0
