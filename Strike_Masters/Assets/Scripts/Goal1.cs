@@ -13,6 +13,7 @@ public class Goal1 : MonoBehaviour
     public GameObject[] players;
     public Transform[] initialPlayerPositions;
     public Transform centerFieldPosition;
+    public BallHolder ballHolder;
 
 
     // Start is called before the first frame update
@@ -47,7 +48,7 @@ public class Goal1 : MonoBehaviour
     private void ResetBallAndPlayers()
     {
         ball.transform.position = centerFieldPosition.position;
-
+        ballHolder.ResetBallPosition();
         for (int i = 0; i < players.Length; i++)
         {
             players[i].transform.position = initialPlayerPositions[i].position;

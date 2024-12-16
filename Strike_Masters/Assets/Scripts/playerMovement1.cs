@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rbPlayer;
     private Quaternion lastRotation;
     private Vector3 movement;
+    public Animator animator;
 
     public BallHolder ballHolder;
 
@@ -27,13 +28,24 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = Input.GetAxisRaw(horizontalInput);
         float vertical = Input.GetAxisRaw(verticalInput);
 
-        movement = new Vector3(horizontal, 0, vertical);
+        movement = new Vector3(horizontal, 0, vertical).normalized;
 
         rbPlayer.velocity += movement * speed * Time.deltaTime;
 
         if (movement.magnitude > 0.1f)
         {
+            if (animator != null)
+            {
+                animator.SetBool("isRunning", true);
+            }
             lastRotation = Quaternion.LookRotation(movement);
+        }
+        else
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isRunning", false);
+            }
         }
         transform.rotation = lastRotation;
 
@@ -42,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(kickKey))
             {
                 KickBall();
+                Debug.Log("CHUT");
             }
         }
     }

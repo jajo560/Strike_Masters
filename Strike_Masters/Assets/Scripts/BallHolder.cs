@@ -77,11 +77,20 @@ public class BallHolder : MonoBehaviour
     public void KickTheBall(Vector3 kickDirection, float kickForce)
     {
         ReleaseBall();
+        rb.isKinematic = false;
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
     }
     private void ReleaseBall()
     {
         isPossessed = false;
         currentPlayer = null;
+        rb.isKinematic = true;
     }
+
+    public void ResetBallPosition()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
+
 }
