@@ -361,6 +361,7 @@
 "Assets/Scripts/ButtonPlay.cs"
 "Assets/Scripts/Goal.cs"
 "Assets/Scripts/Goal1.cs"
+"Assets/Scripts/PauseMenu.cs"
 "Assets/Scripts/playerMovement1.cs"
 -langversion:9.0
 
