@@ -307,10 +307,16 @@
 -r:"Library/Bee/artifacts/1900b0aP.dag/UnityEngine.UI.ref.dll"
 -analyzer:"E:/Unity/2022.3.3f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"E:/Unity/2022.3.3f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
+"Assets/Kevin Iglesias/Basic Motions/_DemoScene/Scripts/BasicMotionsAnimatorParameterRemover.cs"
+"Assets/Kevin Iglesias/Basic Motions/_DemoScene/Scripts/BasicMotionsAnimatorStateChanger.cs"
+"Assets/Kevin Iglesias/Basic Motions/_DemoScene/Scripts/BasicMotionsCamera.cs"
+"Assets/Kevin Iglesias/Basic Motions/_DemoScene/Scripts/BasicMotionsCharacterController.cs"
 "Assets/Scripts/BallHolder.cs"
+"Assets/Scripts/Bounce.cs"
 "Assets/Scripts/ButtonPlay.cs"
 "Assets/Scripts/Goal.cs"
 "Assets/Scripts/Goal1.cs"
+"Assets/Scripts/PauseMenu.cs"
 "Assets/Scripts/playerMovement1.cs"
 -langversion:9.0
 
