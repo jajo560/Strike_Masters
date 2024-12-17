@@ -6,14 +6,16 @@ TagManager:
   tags:
   - Ball
   - InvisibleWall
+  - Laser
+  - Walls
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bounce
   - Water
   - UI
-  - 
+  - Vehicle
   - 
   - 
   - 
