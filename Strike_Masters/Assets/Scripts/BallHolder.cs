@@ -5,8 +5,8 @@ using UnityEngine;
 public class BallHolder : MonoBehaviour
 {
     public Transform[] currentHolder;
-    public GameObject currentPlayer;    
-    public GameObject[] players;    
+    public GameObject currentPlayer;
+    public GameObject[] players;
     private Rigidbody rb;
 
     public float followSpeed = 10f;
@@ -15,10 +15,14 @@ public class BallHolder : MonoBehaviour
     public float possessionSwitchDelay = 0.5f;
     private float lastPossessionTime = -0.5f;
 
+    // Nueva variable para la fuerza extra cuando se hace el chut fuerte
+    public float strongKickMultiplier = 1.5f; // Multiplicador de la fuerza extra
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
+
     private void FixedUpdate()
     {
         if (isPossessed && currentPlayer != null)
@@ -31,6 +35,7 @@ public class BallHolder : MonoBehaviour
             }
         }
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         for (int i = 0; i < players.Length; i++)
@@ -42,6 +47,7 @@ public class BallHolder : MonoBehaviour
             }
         }
     }
+
     private void TryAssignPossession(GameObject player, Transform holder)
     {
         if (Time.time >= lastPossessionTime + possessionSwitchDelay)
@@ -49,6 +55,7 @@ public class BallHolder : MonoBehaviour
             AssignPossession(player, holder);
         }
     }
+
     private void AssignPossession(GameObject player, Transform holder)
     {
         isPossessed = true;
@@ -62,6 +69,7 @@ public class BallHolder : MonoBehaviour
 
         lastPossessionTime = Time.time;
     }
+
     private Transform GetCurrentHolderTransform()
     {
         for (int i = 0; i < players.Length; i++)
@@ -70,16 +78,25 @@ public class BallHolder : MonoBehaviour
             {
                 return currentHolder[i];
             }
-        }       
+        }
         return null;
-
     }
-    public void KickTheBall(Vector3 kickDirection, float kickForce)
+
+    // Método modificado para realizar el chut
+    public void KickTheBall(Vector3 kickDirection, float kickForce, bool isStrongKick)
     {
         ReleaseBall();
         rb.isKinematic = false;
+
+        // Si es un chut fuerte, multiplicamos la fuerza
+        if (isStrongKick)
+        {
+            kickForce *= strongKickMultiplier;
+        }
+
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
     }
+
     private void ReleaseBall()
     {
         isPossessed = false;
@@ -92,5 +109,4 @@ public class BallHolder : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
-
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,14 +10,14 @@ public class PlayerMovement : MonoBehaviour
     public float kickForce = 10f;
     private bool isStunned = false;
     public float rotationSpeedWhileStunned = 70f;
-
+    public bool isStrongKick = false;
     private Rigidbody rbPlayer;
     private Quaternion lastRotation;
     private Vector3 movement;
     public Animator animator;
     public AudioClip kickSound;
     private AudioSource audioSource;
-
+    public bool isPlayer2 = false;
     public BallHolder ballHolder;
 
     void Start()
@@ -31,9 +30,16 @@ public class PlayerMovement : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
+
     void Update()
     {
-        if (!isStunned) { 
+        if (!isStunned)
+        {
+            // Determina si el jugador 2 está presionando Right Shift
+            if (isPlayer2)  // Asegúrate de que 'isPlayer2' esté correctamente asignado
+            {
+                isStrongKick = Input.GetKey(KeyCode.RightShift); // Cambia a verdadero cuando se presiona Right Shift
+            }
 
             float horizontal = Input.GetAxisRaw(horizontalInput);
             float vertical = Input.GetAxisRaw(verticalInput);
@@ -48,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     animator.SetBool("isRunning", true);
                 }
-                    lastRotation = Quaternion.LookRotation(movement);
+                lastRotation = Quaternion.LookRotation(movement);
             }
             else
             {
@@ -59,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
             }
             transform.rotation = lastRotation;
 
+            // Verifica si el balón está poseído y si el jugador presiona la tecla de patada
             if (ballHolder != null && ballHolder.isPossessed && ballHolder.currentPlayer == gameObject)
             {
                 if (Input.GetKeyDown(kickKey))
@@ -77,14 +84,16 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(0, rotationSpeedWhileStunned * Time.deltaTime, 0);
         }
     }
+
     void KickBall()
     {
         if (ballHolder != null)
         {
             Vector3 kickDirection = transform.forward;
-            ballHolder.KickTheBall(kickDirection, kickForce);
+            ballHolder.KickTheBall(kickDirection, kickForce, isStrongKick);
         }
     }
+
     public IEnumerator ApplyStun(float duration)
     {
         isStunned = true;
@@ -93,5 +102,4 @@ public class PlayerMovement : MonoBehaviour
         rbPlayer.isKinematic = false;
         isStunned = false;
     }
-
 }

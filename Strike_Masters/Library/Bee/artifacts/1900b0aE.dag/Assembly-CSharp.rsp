@@ -367,9 +367,12 @@
 "Assets/Scripts/Goal1.cs"
 "Assets/Scripts/Light.cs"
 "Assets/Scripts/MusicController.cs"
+"Assets/Scripts/Parry.cs"
 "Assets/Scripts/PauseMenu.cs"
 "Assets/Scripts/playerMovement1.cs"
+"Assets/Scripts/PowerShoot.cs"
 "Assets/Scripts/Shockwave.cs"
+"Assets/Scripts/UISounds.cs"
 "Assets/Scripts/VehicleEvent.cs"
 -langversion:9.0
 

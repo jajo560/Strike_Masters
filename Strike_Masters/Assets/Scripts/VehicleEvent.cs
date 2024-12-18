@@ -12,28 +12,28 @@ public class VehicleEvent : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("SpawnVehicle", 1f, 3f);  // Llamar a SpawnVehicle cada 3 segundos
+        InvokeRepeating("SpawnVehicle", 1f, 2f);
     }
 
     void SpawnVehicle()
     {
         int spawnIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
-        int destinationIndex = UnityEngine.Random.Range(0, destinationPoints.Length);
 
-        // Crear el vehículo en el punto de spawn
-        GameObject vehicle = Instantiate(vehiclePrefab, spawnPoints[spawnIndex].position, Quaternion.Euler(0, 180, 0));
+        Transform spawnPoint = spawnPoints[spawnIndex];
+        Transform destinationPoint = destinationPoints[spawnIndex];
+
+        GameObject vehicle = Instantiate(vehiclePrefab, spawnPoint.position, Quaternion.identity);
+
+        Vector3 directionToDestination = (destinationPoint.position - spawnPoint.position).normalized;
+
+        vehicle.transform.rotation = Quaternion.LookRotation(directionToDestination);
 
         Rigidbody rb = vehicle.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            // Calcular la dirección hacia el destino
-            Vector3 directionToDestination = (destinationPoints[destinationIndex].position - vehicle.transform.position).normalized;
-
-            // Aplicar una fuerza constante en la dirección hacia el destino
-            rb.AddForce(directionToDestination * speed, ForceMode.VelocityChange);
+            rb.velocity = directionToDestination * speed;
         }
 
-        // Destruir el vehículo después de un tiempo determinado
         Destroy(vehicle, lifeTime);
     }
 }
