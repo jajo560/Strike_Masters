@@ -89,9 +89,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (ballHolder != null)
         {
+            if (animator != null)
+            {
+                animator.SetBool("isShooting", true);
+                StartCoroutine(ResetShootingAnim());
+            }
+
             Vector3 kickDirection = transform.forward;
             ballHolder.KickTheBall(kickDirection, kickForce, isStrongKick);
         }
+    }
+
+    IEnumerator ResetShootingAnim()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("isShooting", false);
     }
 
     public IEnumerator ApplyStun(float duration)
