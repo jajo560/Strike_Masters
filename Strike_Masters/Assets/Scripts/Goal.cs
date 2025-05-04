@@ -6,54 +6,47 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    public TMP_Text score;
-    private int currentScore = 0;
-
     public GameObject ball;
     public GameObject[] players;
     public Transform[] initialPlayerPositions;
     public Transform centerFieldPosition;
     public BallHolder ballHolder;
 
+    public GameManager gameManager;
+    public AudioClip goalSound;
+    private AudioSource audioSource;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ball"))
         {
             Debug.Log("GOOOOOLLLL");
-            currentScore++;
-            UpdateScoreText();
+            gameManager.GoalScored(1);
             ResetBallAndPlayers();
+            if (goalSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(goalSound);
+            }
         }
 
     }
 
-    private void UpdateScoreText()
-    {
-        score.text = currentScore.ToString();
-    }
-
     private void ResetBallAndPlayers()
     {
-        ball.transform.position = centerFieldPosition.position;
         ballHolder.ResetBallPosition();
+        ballHolder.ReleaseBall();
+
+        ball.transform.position = centerFieldPosition.position;
 
         for (int i = 0; i < players.Length; i++)
         {
             players[i].transform.position = initialPlayerPositions[i].position;
         }
     }
+
 
 }

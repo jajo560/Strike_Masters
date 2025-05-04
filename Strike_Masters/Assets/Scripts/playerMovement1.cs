@@ -25,10 +25,7 @@ public class PlayerMovement : MonoBehaviour
         rbPlayer = GetComponent<Rigidbody>();
         lastRotation = transform.rotation;
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+
     }
 
     void Update()

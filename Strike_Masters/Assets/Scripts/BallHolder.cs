@@ -103,7 +103,7 @@ public class BallHolder : MonoBehaviour
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
     }
 
-    private void ReleaseBall()
+    public void ReleaseBall()
     {
         isPossessed = false;
         currentPlayer = null;
