@@ -35,10 +35,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isStunned)
         {
-            // Determina si el jugador 2 está presionando Right Shift
-            if (isPlayer2)  // Asegúrate de que 'isPlayer2' esté correctamente asignado
+            if (isPlayer2)
             {
-                isStrongKick = Input.GetKey(KeyCode.RightShift); // Cambia a verdadero cuando se presiona Right Shift
+                isStrongKick = Input.GetKey(KeyCode.RightShift);
             }
 
             float horizontal = Input.GetAxisRaw(horizontalInput);

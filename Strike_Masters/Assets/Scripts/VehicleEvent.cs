@@ -17,7 +17,7 @@ public class VehicleEvent : MonoBehaviour
 
     void SpawnVehicle()
     {
-        int spawnIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
+        int spawnIndex = Random.Range(0, spawnPoints.Length);
 
         Transform spawnPoint = spawnPoints[spawnIndex];
         Transform destinationPoint = destinationPoints[spawnIndex];

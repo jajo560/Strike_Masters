@@ -15,12 +15,15 @@ public class BallHolder : MonoBehaviour
     public float possessionSwitchDelay = 0.5f;
     private float lastPossessionTime = -0.5f;
 
-    // Nueva variable para la fuerza extra cuando se hace el chut fuerte
-    public float strongKickMultiplier = 1.5f; // Multiplicador de la fuerza extra
-
+    public float strongKickMultiplier = 1.5f;
+    public AudioClip possessionSound;
+    private AudioSource audioSource;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     private void FixedUpdate()
@@ -67,7 +70,12 @@ public class BallHolder : MonoBehaviour
         transform.position = holder.position;
         transform.rotation = holder.rotation;
 
-        lastPossessionTime = Time.time;
+        lastPossessionTime = Time.time; 
+        
+        if (possessionSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(possessionSound);
+        }
     }
 
     private Transform GetCurrentHolderTransform()
@@ -82,13 +90,11 @@ public class BallHolder : MonoBehaviour
         return null;
     }
 
-    // Método modificado para realizar el chut
     public void KickTheBall(Vector3 kickDirection, float kickForce, bool isStrongKick)
     {
         ReleaseBall();
         rb.isKinematic = false;
 
-        // Si es un chut fuerte, multiplicamos la fuerza
         if (isStrongKick)
         {
             kickForce *= strongKickMultiplier;
