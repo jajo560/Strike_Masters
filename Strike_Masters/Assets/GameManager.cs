@@ -13,7 +13,21 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreTextPlayer2;
 
     public AudioManager audioManager;
+    public GameObject startUI;
+    public bool isMatchStarted = false;
 
+    public static GameManager Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         UpdateScoreUI();
@@ -46,4 +60,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("¡Partido terminado!");
         // Aquí pausar el juego, mostrar una pantalla final, etc.
     }
+
+    public void StartMatch()
+    {
+        StartCoroutine(ShowStartUI());
+    }
+
+    IEnumerator ShowStartUI()
+    {
+        startUI.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        startUI.SetActive(false);
+    }
+
 }

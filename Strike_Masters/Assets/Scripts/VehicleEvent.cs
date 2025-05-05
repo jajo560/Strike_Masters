@@ -9,12 +9,10 @@ public class VehicleEvent : MonoBehaviour
     public Transform[] spawnPoints;
     public Transform[] destinationPoints;
     public float lifeTime = 10f;
-
-    void Start()
+    public void StartSpawning()
     {
         InvokeRepeating("SpawnVehicle", 1f, 2f);
     }
-
     void SpawnVehicle()
     {
         int spawnIndex = Random.Range(0, spawnPoints.Length);
@@ -36,4 +34,6 @@ public class VehicleEvent : MonoBehaviour
 
         Destroy(vehicle, lifeTime);
     }
+
+
 }

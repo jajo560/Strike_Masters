@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.isMatchStarted) return;
         if (!isStunned)
         {
             if (isPlayer2)
