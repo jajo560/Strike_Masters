@@ -20,4 +20,10 @@ public class AudioManager : MonoBehaviour
             hasSwitched = true;
         }
     }
+
+    public void StopMusic()
+    {
+        audioSource.Stop();
+    }
+
 }

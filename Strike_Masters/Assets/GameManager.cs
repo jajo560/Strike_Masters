@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameObject finishUI;
     public bool isMatchStarted = false;
 
+    public AudioClip win;
+    private AudioSource audioSource;
+
     public static GameManager Instance;
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateScoreUI();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void GoalScored(int scorerPlayer)
@@ -61,6 +65,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("¡Partido terminado!");
         Time.timeScale = 0f;
+        audioManager.StopMusic();
 
         if (scorePlayer1 >= winningScore)
         {
@@ -70,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             winnerText.text = "¡Jugador 2 ha ganado!";
         }
+        audioSource.PlayOneShot(win);
 
         finishUI.SetActive(true);
     }
