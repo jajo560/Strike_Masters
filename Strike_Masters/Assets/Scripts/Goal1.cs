@@ -25,7 +25,7 @@ public class Goal1 : MonoBehaviour
         if (collision.collider.CompareTag("Ball"))
         {
             Debug.Log("GOOOOOLLLL");
-            gameManager.GoalScored(2);
+            gameManager.GoalScored(1);
             ResetBallAndPlayers();
             if (goalSound != null && audioSource != null)
             {

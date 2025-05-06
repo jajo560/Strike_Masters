@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,9 +12,10 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text scoreTextPlayer1;
     public TMP_Text scoreTextPlayer2;
-
+    public TMP_Text winnerText;
     public AudioManager audioManager;
     public GameObject startUI;
+    public GameObject finishUI;
     public bool isMatchStarted = false;
 
     public static GameManager Instance;
@@ -58,7 +60,18 @@ public class GameManager : MonoBehaviour
     void EndMatch()
     {
         Debug.Log("¡Partido terminado!");
-        // Aquí pausar el juego, mostrar una pantalla final, etc.
+        Time.timeScale = 0f;
+
+        if (scorePlayer1 >= winningScore)
+        {
+            winnerText.text = "¡Jugador 1 ha ganado!";
+        }
+        else if (scorePlayer2 >= winningScore)
+        {
+            winnerText.text = "¡Jugador 2 ha ganado!";
+        }
+
+        finishUI.SetActive(true);
     }
 
     public void StartMatch()
@@ -73,4 +86,15 @@ public class GameManager : MonoBehaviour
         startUI.SetActive(false);
     }
 
+    public void GoMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+    }    
+    
+    public void PlayAgain()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Game");
+    }
 }
