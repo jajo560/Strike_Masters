@@ -2398,7 +2398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36125c2c282e0824884f6d427fda527d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
   ball: {fileID: 1358213970}
   players:
   - {fileID: 1986898277}
@@ -2408,6 +2407,8 @@ MonoBehaviour:
   - {fileID: 0}
   centerFieldPosition: {fileID: 0}
   ballHolder: {fileID: 1358213971}
+  gameManager: {fileID: 0}
+  goalSound: {fileID: 0}
 --- !u!1 &507053135
 GameObject:
   m_ObjectHideFlags: 0
@@ -4795,7 +4796,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: SoccerField
+          m_StringArgument: Tutorial
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1096712811
@@ -5290,6 +5291,7 @@ MonoBehaviour:
   isPossessed: 0
   possessionSwitchDelay: 0.5
   strongKickMultiplier: 1.5
+  possessionSound: {fileID: 0}
 --- !u!114 &1358213972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7961,7 +7963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd62add99d7f3042bd620ee7ba633e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 0}
   ball: {fileID: 1358213970}
   players:
   - {fileID: 1986898277}
@@ -7971,6 +7972,8 @@ MonoBehaviour:
   - {fileID: 0}
   centerFieldPosition: {fileID: 0}
   ballHolder: {fileID: 1358213971}
+  gameManager: {fileID: 0}
+  goalSound: {fileID: 0}
 --- !u!1 &2025419019
 GameObject:
   m_ObjectHideFlags: 0

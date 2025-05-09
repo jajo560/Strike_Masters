@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8769795067866424881}
   - component: {fileID: 2902517140600388134}
   - component: {fileID: 7495289500636475235}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: front wheel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 6636708799940657510}
   - component: {fileID: 5231048749094421330}
   - component: {fileID: 728689605841811586}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: front wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3605986185487321477}
   - component: {fileID: -7421111968961841811}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: car SUVs pickups lights red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 3557313395926691831}
   - component: {fileID: 6039253695996540025}
   - component: {fileID: 5117436386022955344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: car SUVs pickups lights body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 4431590593182361735}
   - component: {fileID: 1051074068538160854}
   - component: {fileID: 1593401416663401622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: rear wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 7681698363340904337}
   - component: {fileID: 7625583942548064365}
   - component: {fileID: 3389320533121434041}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: front wheel 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

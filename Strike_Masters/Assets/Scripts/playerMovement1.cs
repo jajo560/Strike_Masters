@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isPlayer2)
             {
-                isStrongKick = Input.GetKey(KeyCode.RightShift);
+                isStrongKick = Input.GetKey(KeyCode.RightControl);
             }
 
             float horizontal = Input.GetAxisRaw(horizontalInput);
@@ -62,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
             }
             transform.rotation = lastRotation;
 
-            // Verifica si el balón está poseído y si el jugador presiona la tecla de patada
             if (ballHolder != null && ballHolder.isPossessed && ballHolder.currentPlayer == gameObject)
             {
                 if (Input.GetKeyDown(kickKey))

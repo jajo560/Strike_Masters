@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class Parry : MonoBehaviour
 {
-    public float parryTimeWindow = 1f; // Tiempo en el que el parry puede deshacer el stun (1 segundo)
-    private bool isParrying = false; // Si el jugador está haciendo parry
-    private bool canParry = true; // Si se puede hacer parry
+    public float parryTimeWindow = 1f;
+    public float parryCooldown = 3f;
+    private bool isParrying = false;
+    private bool canParry = true;
 
     void Update()
     {
-        // Si el jugador presiona RightControl, y puede hacer parry
-        if (Input.GetKeyDown(KeyCode.RightControl) && canParry)
+        if (Input.GetKeyDown(KeyCode.Period) && canParry)
         {
             Debug.Log("PARRY");
             StartCoroutine(TryParry());
@@ -19,39 +19,31 @@ public class Parry : MonoBehaviour
 
     private IEnumerator TryParry()
     {
-        // Activar el parry
         isParrying = true;
         canParry = false;
 
-        // Esperamos el tiempo de la ventana de parry para ver si el parry se mantiene
         yield return new WaitForSeconds(parryTimeWindow);
 
-        // Desactivamos el parry
         isParrying = false;
 
-        // Enfriamiento para el parry (puede ser ajustado)
-        yield return new WaitForSeconds(parryTimeWindow);
+        yield return new WaitForSeconds(parryCooldown);
         canParry = true;
     }
 
-    // Método para comprobar si el jugador está haciendo parry
     public bool IsParrying()
     {
         return isParrying;
     }
 
-    // Método para que otros scripts comprueben si puede realizar el parry
     public bool CanParry()
     {
         return canParry;
     }
 
-    // Método que se llama cuando el jugador intenta hacer el parry
     public void AttemptParry()
     {
         if (isParrying)
         {
-            // Si se estaba haciendo parry, se puede deshacer el stun
             Debug.Log("Parry realizado");
         }
     }

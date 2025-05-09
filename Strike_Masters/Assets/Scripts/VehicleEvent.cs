@@ -5,22 +5,30 @@ using UnityEngine;
 public class VehicleEvent : MonoBehaviour
 {
     public float speed = 10f;
-    public GameObject vehiclePrefab;
+    public List<GameObject> vehiclePrefabs;
     public Transform[] spawnPoints;
     public Transform[] destinationPoints;
     public float lifeTime = 10f;
+    public AudioSource audioSource;
+    public List<AudioClip> hornSounds;
+
+    private AudioClip lastHornSound;
+
     public void StartSpawning()
     {
         InvokeRepeating("SpawnVehicle", 1f, 2f);
     }
+
     void SpawnVehicle()
     {
+        PlayRandomHornSound();
         int spawnIndex = Random.Range(0, spawnPoints.Length);
+        int prefabIndex = Random.Range(0, vehiclePrefabs.Count);
 
         Transform spawnPoint = spawnPoints[spawnIndex];
         Transform destinationPoint = destinationPoints[spawnIndex];
 
-        GameObject vehicle = Instantiate(vehiclePrefab, spawnPoint.position, Quaternion.identity);
+        GameObject vehicle = Instantiate(vehiclePrefabs[prefabIndex], spawnPoint.position, Quaternion.identity);
 
         Vector3 directionToDestination = (destinationPoint.position - spawnPoint.position).normalized;
 
@@ -35,5 +43,16 @@ public class VehicleEvent : MonoBehaviour
         Destroy(vehicle, lifeTime);
     }
 
+    void PlayRandomHornSound()
+    {
+        AudioClip selectedSound = hornSounds[Random.Range(0, hornSounds.Count)];
 
+        while (selectedSound == lastHornSound)
+        {
+            selectedSound = hornSounds[Random.Range(0, hornSounds.Count)];
+        }
+
+        audioSource.PlayOneShot(selectedSound);
+        lastHornSound = selectedSound;
+    }
 }
