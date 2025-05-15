@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isPlayer2 = false;
     public BallHolder ballHolder;
 
+    public float strongKickCooldown = 3f;
+    private float strongKickTimer = 0f;
+    private bool canStrongKick = true;
+
+    public Image strongKickCooldownImage;
+
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
@@ -31,11 +38,29 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.isMatchStarted) return;
+
+        // Actualizar cooldown visual y lógico
+        if (!canStrongKick)
+        {
+            strongKickTimer -= Time.deltaTime;
+            strongKickCooldownImage.fillAmount = 1f - (strongKickTimer / strongKickCooldown);
+
+            if (strongKickTimer <= 0f)
+            {
+                canStrongKick = true;
+                strongKickCooldownImage.fillAmount = 1f;
+            }
+        }
+
         if (!isStunned)
         {
-            if (isPlayer2)
+            if (isPlayer2 && canStrongKick)
             {
                 isStrongKick = Input.GetKey(KeyCode.RightControl);
+            }
+            else
+            {
+                isStrongKick = false;
             }
 
             float horizontal = Input.GetAxisRaw(horizontalInput);
@@ -60,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
                     animator.SetBool("isRunning", false);
                 }
             }
+
             transform.rotation = lastRotation;
 
             if (ballHolder != null && ballHolder.isPossessed && ballHolder.currentPlayer == gameObject)
@@ -67,11 +93,20 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetKeyDown(kickKey))
                 {
                     KickBall();
+
                     if (kickSound != null && audioSource != null)
                     {
                         audioSource.PlayOneShot(kickSound);
                     }
+
                     Debug.Log("CHUT");
+
+                    if (isStrongKick)
+                    {
+                        canStrongKick = false;
+                        strongKickTimer = strongKickCooldown;
+                        strongKickCooldownImage.fillAmount = 0f;
+                    }
                 }
             }
         }
@@ -80,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(0, rotationSpeedWhileStunned * Time.deltaTime, 0);
         }
     }
+
 
     void KickBall()
     {

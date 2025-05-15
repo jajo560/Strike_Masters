@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shockwave : MonoBehaviour
 {
@@ -11,15 +12,19 @@ public class Shockwave : MonoBehaviour
     public GameObject shockwaveEffectPrefab;
     private GameObject player;
 
-    public float shockwaveCooldown = 5f;
     public float stunDuration = 2f;
 
-    // Referencia al script de parry del segundo jugador
     public Parry secondPlayerParryScript;
+
+    [Header("UI Cooldown")]
+    public Image shockwaveCooldownImage;
+    private float cooldownTimer = 0f;
 
     private void Start()
     {
         player = this.gameObject;
+        if (shockwaveCooldownImage != null)
+            shockwaveCooldownImage.fillAmount = 1f;
     }
 
     void Update()
@@ -28,27 +33,35 @@ public class Shockwave : MonoBehaviour
         {
             ActivateShockwave();
         }
+
+        if (!canUseShockwave)
+        {
+            cooldownTimer -= Time.deltaTime;
+            shockwaveCooldownImage.fillAmount = 1f - (cooldownTimer / cooldownTime);
+
+            if (cooldownTimer <= 0f)
+            {
+                canUseShockwave = true;
+                shockwaveCooldownImage.fillAmount = 1f;
+            }
+        }
     }
 
     void ActivateShockwave()
     {
-        // Crear la animación/efecto del shockwave
         if (shockwaveEffectPrefab != null)
         {
             Instantiate(shockwaveEffectPrefab, transform.position, Quaternion.identity);
         }
 
-        // Verificar los objetos cercanos a través de la esfera de colisión
         Collider[] colliders = Physics.OverlapSphere(transform.position, shockwaveRadius);
 
         foreach (Collider nearbyObject in colliders)
         {
             if (nearbyObject.CompareTag("Player"))
             {
-                // Evitar que el primer jugador se aturda a sí mismo
                 if (nearbyObject.gameObject == this.gameObject) continue;
 
-                // Obtener el Rigidbody y aplicar la fuerza del shockwave
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -57,19 +70,15 @@ public class Shockwave : MonoBehaviour
                     rb.AddForce(forceDirection.normalized * shockwaveForce, ForceMode.Impulse);
                 }
 
-                // Obtener el componente PlayerMovement
                 PlayerMovement playerMovement = nearbyObject.GetComponent<PlayerMovement>();
                 if (playerMovement != null)
                 {
-                    // Verificar si el segundo jugador está haciendo parry
                     if (secondPlayerParryScript != null && secondPlayerParryScript.IsParrying())
                     {
-                        // Si el segundo jugador está haciendo parry, no aplicar stun
                         Debug.Log("Parry bloquea el stun");
                     }
                     else
                     {
-                        // Si no se hace parry, el primer jugador aturde al segundo jugador
                         StartCoroutine(playerMovement.ApplyStun(stunDuration));
                     }
                 }
@@ -82,7 +91,11 @@ public class Shockwave : MonoBehaviour
     IEnumerator ShockwaveCooldown()
     {
         canUseShockwave = false;
+        cooldownTimer = cooldownTime;
+
+        if (shockwaveCooldownImage != null)
+            shockwaveCooldownImage.fillAmount = 0f;
+
         yield return new WaitForSeconds(cooldownTime);
-        canUseShockwave = true;
     }
 }
