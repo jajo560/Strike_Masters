@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainSpeed: 30
-  stunDuration: 2
+  stunDuration: 3.5
   pushForce: 20
   destroyAfterSeconds: 10
   spawnSounds:
