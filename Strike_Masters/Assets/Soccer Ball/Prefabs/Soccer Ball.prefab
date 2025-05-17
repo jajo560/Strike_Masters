@@ -160,7 +160,7 @@ MonoBehaviour:
   possessionRange: 1.5
   isPossessed: 0
   possessionSwitchDelay: 0.5
-  strongKickMultiplier: 1.5
+  strongKickMultiplier: 2
   possessionSound: {fileID: 8300000, guid: 09aa14766d257f147bd595345ecb7853, type: 3}
 --- !u!114 &4938472394666104427
 MonoBehaviour:

@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalInput: Horizontal_2
   verticalInput: Vertical_2
-  kickKey: 256
+  kickKey: 303
   speed: 80
   kickForce: 20
   rotationSpeedWhileStunned: 250
@@ -181,6 +181,8 @@ MonoBehaviour:
   kickSound: {fileID: 8300000, guid: 10aefded9a19d63499715643bba8b7c2, type: 3}
   isPlayer2: 1
   ballHolder: {fileID: 0}
+  strongKickCooldown: 3
+  strongKickCooldownImage: {fileID: 0}
 --- !u!54 &435162692245955550
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,7 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12673e7596e4c9046937bd7184258ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryTimeWindow: 2
+  parryTimeWindow: 1.5
+  parryCooldown: 2
+  cooldownImage: {fileID: 0}
 --- !u!82 &1172471434010408675
 AudioSource:
   m_ObjectHideFlags: 0

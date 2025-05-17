@@ -2742,12 +2742,14 @@ MonoBehaviour:
   kickKey: 32
   speed: 70
   kickForce: 17
-  rotationSpeedWhileStunned: 70
+  rotationSpeedWhileStunned: 250
   isStrongKick: 0
   animator: {fileID: 3326067372547295318}
   kickSound: {fileID: 8300000, guid: 10aefded9a19d63499715643bba8b7c2, type: 3}
   isPlayer2: 0
   ballHolder: {fileID: 0}
+  strongKickCooldown: 3
+  strongKickCooldownImage: {fileID: 0}
 --- !u!54 &5304589712470610784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2814,6 +2816,7 @@ MonoBehaviour:
   barrierCooldown: 5
   barrierPrefab: {fileID: 6352980325407778475, guid: 5c16a2bc36bf1454f8c5ca9f627887a1, type: 3}
   player: {fileID: 2586441908049319073}
+  barrierCooldownImage: {fileID: 0}
 --- !u!114 &3388195120350223585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2830,9 +2833,9 @@ MonoBehaviour:
   shockwaveForce: 15
   cooldownTime: 5
   shockwaveEffectPrefab: {fileID: 0}
-  shockwaveCooldown: 2
   stunDuration: 3
   secondPlayerParryScript: {fileID: 0}
+  shockwaveCooldownImage: {fileID: 0}
 --- !u!82 &6916496152671316374
 AudioSource:
   m_ObjectHideFlags: 0
