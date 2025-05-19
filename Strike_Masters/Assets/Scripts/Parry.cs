@@ -13,6 +13,9 @@ public class Parry : MonoBehaviour
     private float cooldownTimer = 0f;
     public AudioClip cooldownReadySound;
     private AudioSource audioSource;
+    public ParticleSystem barrierEffect;
+    public AudioClip parrySound;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -21,6 +24,9 @@ public class Parry : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Period) && canParry)
         {
+            barrierEffect.Play();
+            audioSource.PlayOneShot(parrySound);
+
             Debug.Log("PARRY");
             StartCoroutine(TryParry());
         }
@@ -52,22 +58,9 @@ public class Parry : MonoBehaviour
         canParry = true;
         cooldownImage.fillAmount = 1f;
     }
-
     public bool IsParrying()
     {
         return isParrying;
     }
 
-    public bool CanParry()
-    {
-        return canParry;
-    }
-
-    public void AttemptParry()
-    {
-        if (isParrying)
-        {
-            Debug.Log("Parry realizado");
-        }
-    }
 }

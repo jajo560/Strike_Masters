@@ -11,8 +11,6 @@ public class Goal : MonoBehaviour
     public Transform[] initialPlayerPositions;
     public Transform centerFieldPosition;
     public BallHolder ballHolder;
-
-    public GameManager gameManager;
     public AudioClip goalSound;
     private AudioSource audioSource;
 
@@ -24,8 +22,16 @@ public class Goal : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ball"))
         {
-            Debug.Log("GOOOOOLLLL");
-            gameManager.GoalScored(2);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GoalScored(2);
+                Debug.Log("GOOOOOLLLL");
+            }
+            if (ManagerTarget.Instance != null)
+            {
+                ManagerTarget.Instance.GoalScored(1);
+                Debug.Log("GOOOOOLLLL 222");
+            }
             ResetBallAndPlayers();
             if (goalSound != null && audioSource != null)
             {
@@ -38,7 +44,7 @@ public class Goal : MonoBehaviour
     private void ResetBallAndPlayers()
     {
         ballHolder.ResetBallPosition();
-        ballHolder.ReleaseBall();
+        ballHolder.AutoGol();
 
         ball.transform.position = centerFieldPosition.position;
 

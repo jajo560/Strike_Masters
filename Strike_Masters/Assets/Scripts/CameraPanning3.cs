@@ -11,8 +11,8 @@ public class CameraPanning3 : MonoBehaviour
     private int currentIndex = 0;
     private float waitCounter = 0f;
     private bool isPanning = true;
-    public GameManager gameManager;
-    public TargetSpawner trainSpawner;
+    public TrainSpawner trainSpawner;
+    public TargetSpawner targetSpawner;
     void Update()
     {
         if (isPanning)
@@ -20,10 +20,10 @@ public class CameraPanning3 : MonoBehaviour
             Transform target = waypoints[currentIndex];
             transform.position = Vector3.MoveTowards(transform.position, target.position, panSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, Time.deltaTime * panSpeed);
-            GameManager.Instance.isMatchStarted = false;
+            ManagerTarget.Instance.isMatchStarted = false;
             if (!hasStartedMatch)
             {
-                gameManager.StartMatch();
+                ManagerTarget.Instance.StartMatch();
                 hasStartedMatch = true;
             }
             if (Vector3.Distance(transform.position, target.position) < 0.1f)
@@ -36,8 +36,9 @@ public class CameraPanning3 : MonoBehaviour
                     if (currentIndex >= waypoints.Length)
                     {
                         isPanning = false;
-                        GameManager.Instance.isMatchStarted = true;
+                        ManagerTarget.Instance.isMatchStarted = true;
                         trainSpawner.StartSpawning();
+                        targetSpawner.StartSpawning();
                     }
                 }
             }

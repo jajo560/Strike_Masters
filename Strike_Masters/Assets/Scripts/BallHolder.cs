@@ -113,6 +113,13 @@ public class BallHolder : MonoBehaviour
         isPossessed = false;
         currentPlayer = null;
         rb.isKinematic = true;
+    }    
+    
+    public void AutoGol()
+    {
+        isPossessed = false;
+        currentPlayer = null;
+        rb.isKinematic = false;
     }
 
     public void ResetBallPosition()

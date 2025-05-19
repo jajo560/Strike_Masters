@@ -23,13 +23,28 @@ public class Target : MonoBehaviour
     }
     private void Start()
     {
+        isMoving = Random.value < 0.5f;
+
+        if (isMoving)
+        {
+            if (Random.value < 0.5f)
+            {
+                moveDirection = Vector3.right;
+            }
+            else
+            {
+                moveDirection = Vector3.forward;
+            }
+
+            moveSpeed = Random.Range(1f, 3f);
+        }
+
         if (isTimed)
             StartCoroutine(ToggleVisibility());
 
         float duration = Random.Range(minDuration, maxDuration);
         StartCoroutine(DestroyAfterSeconds(duration));
     }
-
     private void Update()
     {
         if (isMoving)
@@ -46,7 +61,12 @@ public class Target : MonoBehaviour
                 PlayerMovement shooter = ball.lastShooter.GetComponent<PlayerMovement>();
                 if (shooter != null)
                 {
-                    TargetManager.instance.AddScore(shooter.isPlayer2, scoreValue);
+                    ManagerTarget.Instance.TargetHit(shooter.isPlayer2 ? 1 : 0);
+                    Debug.Log("HIT");            
+                    if (spawner != null)
+                    {
+                        spawner.PlayHitSound();
+                    }
                 }
             }
 

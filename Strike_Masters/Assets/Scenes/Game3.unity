@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.731, y: 0.94900006}
   m_AnchorMax: {x: 0.79052085, y: 0.98200005}
-  m_AnchoredPosition: {x: 0.2000122, y: -0.57995605}
+  m_AnchoredPosition: {x: 0.2000122, y: 0}
   m_SizeDelta: {x: -0.7250881, y: 1.1600742}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1442226
@@ -419,7 +419,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.143, y: 0.9480001}
   m_AnchorMax: {x: 0.157, y: 0.98200005}
-  m_AnchoredPosition: {x: 0.2980957, y: 0.17199707}
+  m_AnchoredPosition: {x: 0.2980957, y: 0}
   m_SizeDelta: {x: 0.73205566, y: 1.1449966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &95393176
@@ -505,7 +505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.731, y: 0.94900006}
   m_AnchorMax: {x: 0.79052085, y: 0.98300004}
-  m_AnchoredPosition: {x: 0.2999878, y: 0.5999756}
+  m_AnchoredPosition: {x: 0.2999878, y: 0}
   m_SizeDelta: {x: -0.2678547, y: 1.1449966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200169480
@@ -581,7 +581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8278751, y: 0.8227728}
   m_AnchorMax: {x: 0.89829165, y: 0.93600005}
-  m_AnchoredPosition: {x: 0, y: -0.2000122}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 58.299957, y: 41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223099849
@@ -795,7 +795,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21000001, y: 0.9480001}
   m_AnchorMax: {x: 0.22447917, y: 0.98200005}
-  m_AnchoredPosition: {x: 0.46618652, y: 0.17199707}
+  m_AnchoredPosition: {x: 0.4663086, y: 0}
   m_SizeDelta: {x: -0.93237305, y: 1.1449966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234133515
@@ -1122,7 +1122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.14500001, y: 0.94900006}
   m_AnchorMax: {x: 0.156, y: 0.98200005}
-  m_AnchoredPosition: {x: -0.6999512, y: 0.2000122}
+  m_AnchoredPosition: {x: -0.6999512, y: 0}
   m_SizeDelta: {x: 1.0999756, y: -0.2999878}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287337938
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: First to score 3 goals wins!
+  m_text: First to get 100 points win!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 58c082455eb59b24d902837312ab5e4f, type: 2}
   m_sharedMaterial: {fileID: -8728553634323432290, guid: 58c082455eb59b24d902837312ab5e4f, type: 2}
@@ -2657,7 +2657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.79600006, y: 0.94900006}
   m_AnchorMax: {x: 0.85700005, y: 0.98100007}
-  m_AnchoredPosition: {x: 0.41662598, y: -1.0999756}
+  m_AnchoredPosition: {x: 0.41662598, y: 0}
   m_SizeDelta: {x: 0.14670181, y: 0.7000122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &824658576
@@ -2788,7 +2788,6 @@ MonoBehaviour:
   - {fileID: 819769587}
   centerFieldPosition: {fileID: 1781655053}
   ballHolder: {fileID: 1818499045}
-  gameManager: {fileID: 0}
   goalSound: {fileID: 8300000, guid: 977b8ece418e32b4faf8322e1f1fba83, type: 3}
 --- !u!82 &825900307
 AudioSource:
@@ -3108,7 +3107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07675, y: 0.819108}
   m_AnchorMax: {x: 0.15247917, y: 0.93600005}
-  m_AnchoredPosition: {x: -0.30004883, y: 0.1000061}
+  m_AnchoredPosition: {x: -0.30004883, y: 0}
   m_SizeDelta: {x: 66.29993, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863355846
@@ -3511,8 +3510,8 @@ MonoBehaviour:
   - {fileID: 2084105932}
   panSpeed: 7
   waitTime: 1
-  gameManager: {fileID: 0}
-  trainSpawner: {fileID: 1043495399}
+  trainSpawner: {fileID: 1043495397}
+  targetSpawner: {fileID: 1043495399}
 --- !u!1 &1006158384
 GameObject:
   m_ObjectHideFlags: 0
@@ -3803,7 +3802,6 @@ GameObject:
   - component: {fileID: 1043495395}
   - component: {fileID: 1043495399}
   - component: {fileID: 1043495397}
-  - component: {fileID: 1043495398}
   - component: {fileID: 1043495400}
   m_Layer: 0
   m_Name: Game Manager
@@ -3861,7 +3859,7 @@ AudioSource:
   m_GameObject: {fileID: 1043495389}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7504123833110533388, guid: bfa4dc46f10db3d46ba67d86563d796f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.7
@@ -3967,24 +3965,6 @@ MonoBehaviour:
   - {fileID: 460086187}
   - {fileID: 1336893895}
   timeBetweenTrains: 5
---- !u!114 &1043495398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043495389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c72fdcbaefad3043abaf66d18c955e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1Score: 0
-  player2Score: 0
-  targetScore: 10
-  timeLimit: 60
-  player1ScoreText: {fileID: 863355846}
-  player2ScoreText: {fileID: 223099849}
 --- !u!114 &1043495399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4002,6 +3982,8 @@ MonoBehaviour:
   spawnAreaMin: {x: 31.68, y: 5.385366, z: 6.75}
   spawnAreaMax: {x: 53.19, y: 5.385366, z: -8}
   maxTargets: 5
+  hitSound: {fileID: 8300000, guid: 977b8ece418e32b4faf8322e1f1fba83, type: 3}
+  minSpawnDistance: 2
 --- !u!114 &1043495400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4027,6 +4009,7 @@ MonoBehaviour:
   startUI: {fileID: 730053347}
   finishUI: {fileID: 1651269582}
   isMatchStarted: 0
+  pointsPerTarget: 20
   win: {fileID: 8300000, guid: c83318d0c3ef8784eafd47ec4ebf9250, type: 3}
 --- !u!1 &1046171425
 GameObject:
@@ -4867,7 +4850,7 @@ AudioSource:
   m_GameObject: {fileID: 1125079156}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6727338666824359975, guid: bfa4dc46f10db3d46ba67d86563d796f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1251f4f2040349b47a9dad12b227f002, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
@@ -6301,7 +6284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21247917, y: 0.94900006}
   m_AnchorMax: {x: 0.22347917, y: 0.98100007}
-  m_AnchoredPosition: {x: 0.3140869, y: -0.099975586}
+  m_AnchoredPosition: {x: 0.3140869, y: 0}
   m_SizeDelta: {x: 0.099975586, y: 0.7000122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1554286584
@@ -6467,7 +6450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.80300003, y: 0.94900006}
   m_AnchorMax: {x: 0.85200006, y: 0.98200005}
-  m_AnchoredPosition: {x: -0.4000244, y: 0.099975586}
+  m_AnchoredPosition: {x: -0.4000244, y: 0}
   m_SizeDelta: {x: -2.332285, y: 2.1449966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1572451984
@@ -6872,7 +6855,6 @@ MonoBehaviour:
   - {fileID: 819769587}
   centerFieldPosition: {fileID: 1781655053}
   ballHolder: {fileID: 1818499045}
-  gameManager: {fileID: 0}
   goalSound: {fileID: 8300000, guid: 977b8ece418e32b4faf8322e1f1fba83, type: 3}
 --- !u!82 &1925767701
 AudioSource:
@@ -7058,7 +7040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.73247916, y: 0.845}
   m_AnchorMax: {x: 0.78700006, y: 0.9480001}
-  m_AnchoredPosition: {x: -0.5, y: 1.5}
+  m_AnchoredPosition: {x: -0.5, y: 0}
   m_SizeDelta: {x: -4, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1944062152

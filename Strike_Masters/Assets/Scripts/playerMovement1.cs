@@ -25,8 +25,10 @@ public class PlayerMovement : MonoBehaviour
     private float strongKickTimer = 0f;
     private bool canStrongKick = true;
     public AudioClip cooldownReadySound;
+    public AudioClip ability;
 
     public Image strongKickCooldownImage;
+    public ParticleSystem barrierEffect;
 
     void Start()
     {
@@ -38,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.isMatchStarted) return;
+        if ((GameManager.Instance != null && !GameManager.Instance.isMatchStarted) ||
+            (ManagerTarget.Instance != null && !ManagerTarget.Instance.isMatchStarted)) return;
 
         // Actualizar cooldown visual y lógico
         if (!canStrongKick)
@@ -108,6 +111,8 @@ public class PlayerMovement : MonoBehaviour
 
                     if (isStrongKick)
                     {
+                        audioSource.PlayOneShot(ability);
+                        barrierEffect.Play();
                         canStrongKick = false;
                         strongKickTimer = strongKickCooldown;
                         strongKickCooldownImage.fillAmount = 0f;

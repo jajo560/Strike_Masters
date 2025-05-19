@@ -15,7 +15,10 @@ public class PlayerSkills : MonoBehaviour
     public Image barrierCooldownImage;
     private float barrierCooldownTimer = 0f;
     public AudioClip cooldownReadySound;
+    public AudioClip ability;
     private AudioSource audioSource;
+    public ParticleSystem barrierEffect;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -24,6 +27,7 @@ public class PlayerSkills : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && canUseBarrier)
         {
+            audioSource.PlayOneShot(ability);
             ActivateBarrier();
         }
         if (!canUseBarrier)
@@ -46,6 +50,7 @@ public class PlayerSkills : MonoBehaviour
 
     void ActivateBarrier()
     {
+        barrierEffect.Play();
         StartCoroutine(BarrierTimer());
         StartCoroutine(BarrierCooldown());
     }

@@ -20,7 +20,9 @@ public class Shockwave : MonoBehaviour
     public Image shockwaveCooldownImage;
     private float cooldownTimer = 0f;
     public AudioClip cooldownReadySound;
+    public AudioClip ability;
     private AudioSource audioSource;
+    public ParticleSystem barrierEffect;
 
     private void Start()
     {
@@ -35,6 +37,8 @@ public class Shockwave : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && canUseShockwave)
         {
+            audioSource.PlayOneShot(ability);
+
             ActivateShockwave();
         }
 
@@ -57,10 +61,7 @@ public class Shockwave : MonoBehaviour
 
     void ActivateShockwave()
     {
-        if (shockwaveEffectPrefab != null)
-        {
-            Instantiate(shockwaveEffectPrefab, transform.position, Quaternion.identity);
-        }
+        barrierEffect.Play();
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, shockwaveRadius);
 
