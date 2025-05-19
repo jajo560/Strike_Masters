@@ -19,9 +19,13 @@ public class Shockwave : MonoBehaviour
     [Header("UI Cooldown")]
     public Image shockwaveCooldownImage;
     private float cooldownTimer = 0f;
+    public AudioClip cooldownReadySound;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         player = this.gameObject;
         if (shockwaveCooldownImage != null)
             shockwaveCooldownImage.fillAmount = 1f;
@@ -43,6 +47,10 @@ public class Shockwave : MonoBehaviour
             {
                 canUseShockwave = true;
                 shockwaveCooldownImage.fillAmount = 1f;
+                if (cooldownReadySound != null)
+                {
+                    audioSource.PlayOneShot(cooldownReadySound);
+                }
             }
         }
     }

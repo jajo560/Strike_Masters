@@ -11,7 +11,12 @@ public class Parry : MonoBehaviour
     private bool isParrying = false;
     private bool canParry = true;
     private float cooldownTimer = 0f;
-
+    public AudioClip cooldownReadySound;
+    private AudioSource audioSource;
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Period) && canParry)
@@ -23,7 +28,8 @@ public class Parry : MonoBehaviour
         if (!canParry)
         {
             cooldownTimer -= Time.deltaTime;
-            cooldownImage.fillAmount = 1f - (cooldownTimer / parryCooldown);
+            cooldownImage.fillAmount = 1f - (cooldownTimer / parryCooldown); 
+
         }
     }
 
@@ -32,16 +38,17 @@ public class Parry : MonoBehaviour
         isParrying = true;
         canParry = false;
 
+        yield return new WaitForSeconds(parryTimeWindow);
         cooldownTimer = parryCooldown;
         cooldownImage.fillAmount = 0f;
         cooldownImage.enabled = true;
-
-        yield return new WaitForSeconds(parryTimeWindow);
-
         isParrying = false;
 
         yield return new WaitForSeconds(parryCooldown);
-
+        if (cooldownReadySound != null)
+        {
+            audioSource.PlayOneShot(cooldownReadySound);
+        }
         canParry = true;
         cooldownImage.fillAmount = 1f;
     }

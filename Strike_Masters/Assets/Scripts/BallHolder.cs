@@ -18,6 +18,8 @@ public class BallHolder : MonoBehaviour
     public float strongKickMultiplier = 1.5f;
     public AudioClip possessionSound;
     private AudioSource audioSource;
+    public GameObject lastShooter;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -91,7 +93,8 @@ public class BallHolder : MonoBehaviour
     }
 
     public void KickTheBall(Vector3 kickDirection, float kickForce, bool isStrongKick)
-    {
+    {        
+        lastShooter = currentPlayer;
         ReleaseBall();
         rb.isKinematic = false;
 
@@ -101,6 +104,8 @@ public class BallHolder : MonoBehaviour
         }
 
         rb.AddForce(kickDirection.normalized * kickForce, ForceMode.Impulse);
+
+
     }
 
     public void ReleaseBall()

@@ -2817,6 +2817,7 @@ MonoBehaviour:
   barrierPrefab: {fileID: 6352980325407778475, guid: 5c16a2bc36bf1454f8c5ca9f627887a1, type: 3}
   player: {fileID: 2586441908049319073}
   barrierCooldownImage: {fileID: 0}
+  cooldownReadySound: {fileID: 8300000, guid: 6fc714cbaeaf63e418790386bfe9e14c, type: 3}
 --- !u!114 &3388195120350223585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,6 +2837,7 @@ MonoBehaviour:
   stunDuration: 3
   secondPlayerParryScript: {fileID: 0}
   shockwaveCooldownImage: {fileID: 0}
+  cooldownReadySound: {fileID: 8300000, guid: 6fc714cbaeaf63e418790386bfe9e14c, type: 3}
 --- !u!82 &6916496152671316374
 AudioSource:
   m_ObjectHideFlags: 0

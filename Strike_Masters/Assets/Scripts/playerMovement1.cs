@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public float strongKickCooldown = 3f;
     private float strongKickTimer = 0f;
     private bool canStrongKick = true;
+    public AudioClip cooldownReadySound;
 
     public Image strongKickCooldownImage;
 
@@ -49,6 +50,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 canStrongKick = true;
                 strongKickCooldownImage.fillAmount = 1f;
+                if (cooldownReadySound != null)
+                {
+                    audioSource.PlayOneShot(cooldownReadySound);
+                }
             }
         }
 

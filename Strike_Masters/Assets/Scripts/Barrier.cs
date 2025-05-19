@@ -14,7 +14,12 @@ public class PlayerSkills : MonoBehaviour
 
     public Image barrierCooldownImage;
     private float barrierCooldownTimer = 0f;
-
+    public AudioClip cooldownReadySound;
+    private AudioSource audioSource;
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q) && canUseBarrier)
@@ -29,7 +34,12 @@ public class PlayerSkills : MonoBehaviour
             if (barrierCooldownTimer <= 0f)
             {
                 canUseBarrier = true;
-                barrierCooldownImage.fillAmount = 1f;
+                barrierCooldownImage.fillAmount = 1f; 
+                
+                if (cooldownReadySound != null)
+                {
+                    audioSource.PlayOneShot(cooldownReadySound);
+                }
             }
         }
     }
