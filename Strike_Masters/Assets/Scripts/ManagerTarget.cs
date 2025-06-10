@@ -154,6 +154,6 @@ public class ManagerTarget : MonoBehaviour
     public void PlayAgain()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game3");
     }
 }

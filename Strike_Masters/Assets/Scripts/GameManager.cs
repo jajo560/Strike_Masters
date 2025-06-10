@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         if (matchEnded || !isMatchStarted) return;
 
         matchTimer -= Time.deltaTime;
-        timerText.text = "TIMER: " + Mathf.Ceil(matchTimer).ToString();
+        timerText.text = Mathf.Ceil(matchTimer).ToString();
 
         if (matchTimer <= 0)
         {
@@ -142,6 +142,12 @@ public class GameManager : MonoBehaviour
     public void PlayAgain()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Game");
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "Game")
+            SceneManager.LoadScene("Game");
+        else if (currentScene == "Game2")
+            SceneManager.LoadScene("Game2");
+
     }
 }

@@ -61,7 +61,7 @@ public class Target : MonoBehaviour
                 PlayerMovement shooter = ball.lastShooter.GetComponent<PlayerMovement>();
                 if (shooter != null)
                 {
-                    ManagerTarget.Instance.TargetHit(shooter.isPlayer2 ? 1 : 0);
+                    ManagerTarget.Instance.TargetHit(shooter.isPlayer2 ? 2 : 1);
                     Debug.Log("HIT");            
                     if (spawner != null)
                     {
